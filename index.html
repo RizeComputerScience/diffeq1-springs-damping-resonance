@@ -2891,11 +2891,11 @@ function ratereadHTML() {
 }
 function kresetHTML() { return cv('k') === 25 ? '' : '<p class="ptext">' + P('This graph is for `k = ' + fmtNum(cv('k')) + '`.') + ' ' + preset('k', 25, 'Set `k` back to 25') + '</p>'; }
 var SEE_RATE = ['#blk-rate', 'See the rate graph'];
-var FASTEST = [['`b = 10`', 'Correct. Critical damping gives the largest rate, 5 per second. Past 10, more friction slows the return.'],
+var FASTEST = [['`b = 10`', 'Correct. At critical damping the slowest term dies at 5 per second, the largest rate on the graph. Past 10, more friction slows the return.'],
   ['`b = 26`', 'Its fast root is −25, but its slow root −1 sets the pace, so the rate is only 1 per second.', SEE_RATE],
-  ['`b = 6`', 'Its rate is `F{b}{2} = 3` per second, below the 5 at `b = 10`.', SEE_RATE],
+  ['`b = 6`', 'Every term carries `e^(−3t)`, so its slowest term dies at 3 per second, below the 5 at `b = 10`.', SEE_RATE],
   ['The largest `b` on the slider', 'Past `b = 10` more friction slows the return. At `b = 30` the rate is only about 0.86 per second.', SEE_RATE]];
-function fastestHTML() { return card('Fastest Settling', '<p class="ptext">' + P('For `k = 25`, which damping coefficient makes the motion settle fastest?') + '</p>' + choice('q-fastest', FASTEST, 0, 'fastest'), 'card-fastest'); }
+function fastestHTML() { return card('The Slowest Term', '<p class="ptext">' + P('For `k = 25`, at which damping coefficient does the slowest term of the motion die out fastest?') + '</p>' + choice('q-fastest', FASTEST, 0, 'fastest'), 'card-fastest'); }
 
 /* ---------------- section 4: overshoot ---------------- */
 function ovCap() { return "The block and the graph show `y'' + 12y' + 25y = 0` with `y(0) = 1` and `y'(0) = " + fmtNum(cv('v0')) + '`.' + (crossOf(12, 25, 1, cv('v0')) === null ? '' : ' The ring marks where the block passes rest.'); }
@@ -3044,7 +3044,7 @@ function page() {
     col(blk('roots', rootsHTML) + rng('b', '2') + live('rootread', rootreadHTML) + blk('circle', circleHTML)) +
 
     sec('sec-rate', '3', 'How Fast It Settles', '') +
-    prose('', ['The motion settles at the pace of its slowest term. Below critical damping, every term dies at the rate `F{b}{2}`. Above it, the slowest term belongs to the root nearest 0, and its rate is the size of that root.']) +
+    prose('', ['In the long run, the motion dies out at the pace of its slowest term. Below critical damping, every term dies at the rate `F{b}{2}`. Above it, the slowest term belongs to the root nearest 0, and its rate is the size of that root.']) +
     col('<div id="blk-rate">' + graph('fig-rate', rateSpec) + '</div>' + rng('b', '3') + live('rateread', ratereadHTML) + blk('kreset', kresetHTML) + blk('fastest', fastestHTML)) +
 
     sec('sec-overshoot', '4', 'Can an Overdamped Block Pass Rest?', '') +
